@@ -3,6 +3,7 @@ import pandas as pd
 from rdkit import Chem
 from rdkit import DataStructs
 
+# Obtener los datos iniciales
 df = pd.read_csv('D:/Doctorado/Articulo Raul/TF_DB_clean_pathway.csv')
 
 matrix = np.zeros((5390,5390))
@@ -26,10 +27,13 @@ for i in range(len(fps)):
     b = np.random.choice(mini_idx)
     disimilar.append(b)
 
+# Leer los fingerprints calculados
 fpm = np.load('D:/Doctorado/Articulo Raul/fingerprints_matrix_noneg.npy')
 fp_m = np.zeros((len(fpm)*2,512))
 
 for i in range(len(fpm)):
     fp_m[2*i] = fpm[i]
     fp_m[2*i+1] = fpm[int(disimilar[i])]
+
+# Guardamos los resultados
 np.save('D:/Doctorado/Articulo Raul/new_fingerprints_matrix.npy',fp_m)
